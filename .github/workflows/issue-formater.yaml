@@ -50,6 +50,15 @@ jobs:
                  - **Suggested labels**: the labels you applied and why
                - A closing note thanking the contributor
 
+            The comment must use GitHub Flavored Markdown with eye-catching, attractive styling that GitHub renders natively:
+              - Headings (`##`, `###`) to separate sections
+              - Relevant emojis (e.g. 🐛 bug, ✨ feature, ❓ question, 📚 docs)
+              - A table for the "Formatted Report" fields (Type, Summary, Expected behavior, Labels)
+              - Alert blockquotes such as `> [!NOTE]`, `> [!TIP]`, `> [!WARNING]` for key remarks or missing info
+              - Numbered lists for steps to reproduce, bold for key terms, inline code for labels and code identifiers
+              - Horizontal rules (`---`) before the closing note
+              Use only syntax GitHub supports. Do not use raw HTML styles, CSS, or unsupported extensions.
+
             Use the `gh` CLI to apply labels and post the comment. Example commands:
               gh issue edit ${{ github.event.issue.number }} --add-label "bug" --repo ${{ github.repository }}
               gh issue comment ${{ github.event.issue.number }} --body "..." --repo ${{ github.repository }}
