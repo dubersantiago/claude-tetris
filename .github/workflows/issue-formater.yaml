@@ -50,17 +50,46 @@ jobs:
                  - **Suggested labels**: the labels you applied and why
                - A closing note thanking the contributor
 
-            The comment must use GitHub Flavored Markdown with eye-catching, attractive styling that GitHub renders natively:
-              - Headings (`##`, `###`) to separate sections
+            The comment must use GitHub Flavored Markdown with eye-catching, attractive styling that GitHub renders natively.
+            Write it in the same language as the issue.
+
+            Layout rules (critical):
+              - The comment MUST be multi-line. Use real line breaks, never a single line.
+              - Put a BLANK LINE between every block: heading, paragraph, table, list, alert, horizontal rule.
+              - Every table row goes on its own line, with the header separator row (`|---|---|`) on its own line.
+              - Every `---` goes on its own line with a blank line before and after it.
+              - Never join headings, tables, rules, or paragraphs with spaces on the same line.
+
+            Visual hierarchy (use different text sizes):
+              - ONE `#` title at the top with an emoji, e.g. `# 🐛 Issue Report`
+              - `##` for each main section (e.g. `## 📋 Formatted Report`, `## 🔁 Steps to Reproduce`)
+              - `###` for subsections if needed
+              - Normal text for the short friendly summary, placed right under the title
+
+            Elements to include:
               - Relevant emojis (e.g. 🐛 bug, ✨ feature, ❓ question, 📚 docs)
               - A table for the "Formatted Report" fields (Type, Summary, Expected behavior, Labels)
-              - Alert blockquotes such as `> [!NOTE]`, `> [!TIP]`, `> [!WARNING]` for key remarks or missing info
+              - Alert blockquotes `> [!NOTE]`, `> [!TIP]`, `> [!WARNING]` for key remarks or missing info (each on its own lines, starting with `> [!NOTE]` alone on the first line)
               - Numbered lists for steps to reproduce, bold for key terms, inline code for labels and code identifiers
-              - Horizontal rules (`---`) before the closing note
-              Use only syntax GitHub supports. Do not use raw HTML styles, CSS, or unsupported extensions.
+              - A horizontal rule (`---`) before the closing note
+            Use only syntax GitHub supports. Do not use raw HTML, CSS, or unsupported extensions.
 
-            Use the `gh` CLI to apply labels and post the comment. Example commands:
+            Use the `gh` CLI to apply labels and post the comment. Pass the comment through stdin with a quoted heredoc so line breaks are preserved. Do NOT pass multi-line text inside a quoted `--body "..."` string. Example commands:
               gh issue edit ${{ github.event.issue.number }} --add-label "bug" --repo ${{ github.repository }}
-              gh issue comment ${{ github.event.issue.number }} --body "..." --repo ${{ github.repository }}
+            gh issue comment ${{ github.event.issue.number }} --repo ${{ github.repository }} --body-file - <<'EOF'
+            # 🐛 Issue Report
+
+            Short friendly summary.
+
+            ## 📋 Formatted Report
+
+            | Field | Detail |
+            |---|---|
+            | **Type** | ... |
+
+            ---
+
+            Thanks!
+            EOF
 
             Be concise, helpful, and friendly. Do not over-engineer the response.
